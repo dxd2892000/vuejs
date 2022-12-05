@@ -48,6 +48,12 @@ export default {
               })
               this.$router.push('/home')
             })
+            .catch((err) => {
+              this.$notify({
+                type: 'error',
+                message: "Nguoi dung khong ton tai"
+              })
+            })
           } else {
             console.log('error submit!!');
             return false;

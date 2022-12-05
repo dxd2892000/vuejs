@@ -25,7 +25,6 @@ class ContactService {
     return http
       .post('/contacts/update', data)
       .then(res => {
-        console.log(res.message)
         return res?.message;
       })
       .catch(err => {

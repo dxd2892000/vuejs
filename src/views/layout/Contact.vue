@@ -1,22 +1,6 @@
 <template>
   <div>
-    <el-button type="primary" @click="dialogVisible = true"
-      ><i class="el-icon-circle-plus"></i>Thêm mới</el-button
-    >
-    <el-dialog
-      title="Tips"
-      :visible.sync="dialogVisible"
-      width="30%"
-      :before-close="handleClose"
-    >
-      <span>This is a message</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="dialogVisible = false"
-          >Confirm</el-button
-        >
-      </span>
-    </el-dialog>
+    <DialogAddContactVue></DialogAddContactVue>
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column prop="id" label="ID" width="180"> </el-table-column>
       <el-table-column prop="name" label="Name" width="180"> </el-table-column>
@@ -35,7 +19,7 @@
           ></el-input>
         </template>
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+          <el-button size="mini" @click="handleEdit(scope.row)"
             >Edit</el-button
           >
           <el-button
@@ -47,18 +31,28 @@
         </template>
       </el-table-column>
     </el-table>
+    <DialogUpdateContactVue :dialogVisible="dialogVisible" :updateContactForm="contactData"></DialogUpdateContactVue>
   </div>
 </template>
 
 <script>
 import contactService from "@/services/contact_service";
+import DialogAddContactVue from "./DialogAddContact.vue";
+import DialogUpdateContactVue from "./DialogUpdateContact.vue";
 
 export default {
   name: "Contact",
   data() {
     return {
       tableData: [],
-      dialogVisible: false
+      dialogVisible: false,
+      contactData: {
+        id: '',
+        name: '',
+        email: '',
+        phone: '',
+        subject: ''
+      }
     };
   },
   created() {
@@ -67,21 +61,25 @@ export default {
       this.tableData = res;
     });
   },
+  components: { DialogAddContactVue, DialogUpdateContactVue },
   methods: {
     handleDelete(id) {
       console.log("id:", id);
       contactService.delete(id).then((res) => {
         this.$message(res);
-        this.$router.push("/contact");
+        contactService.getList().then((list) => {
+          this.tableData = list;
+        });
       });
     },
-    handleClose(done) {
-        this.$confirm('Are you sure to close this dialog?')
-          .then(_ => {
-            done();
-          })
-          .catch(_ => {});
-      }
+    handleEdit(row) {
+      this.dialogVisible = true,
+      this.contactData.id = row.id,
+      this.contactData.name = row.name,
+      this.contactData.email = row.email,
+      this.contactData.phone = row.phone,
+      this.contactData.subject = row.subject
+    }
   },
 };
 </script>

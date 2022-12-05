@@ -1,4 +1,4 @@
-export const validateEmail = (rule, value, callback) => {
+var validateEmail = (rule, value, callback) => {
   if(value == ''){
     return callback(new Error('Please input the username'))
   }else{
@@ -11,14 +11,14 @@ export const validateEmail = (rule, value, callback) => {
     
   }
 };
-export const validatePass = (rule, value, callback) => {
+var validatePass = (rule, value, callback) => {
   if(value == ''){
     return callback(new Error('Please input the pass'))
   }else{
     callback()
   }
 };
-export const validatePassConfirm = (rule, value, callback) => {
+var validatePassConfirm = (rule, value, callback) => {
   if (value === "") {
     callback(new Error("Please input the password again"));
   } else if (value !== this.ruleForm.pass) {

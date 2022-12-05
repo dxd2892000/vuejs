@@ -23,6 +23,8 @@ http.interceptors.request.use(
     return config;
   },
   error => {
+    localStorage.removeItem('token');
+    this.$router.push('/login');
     return Promise.reject(error);
   },
 );

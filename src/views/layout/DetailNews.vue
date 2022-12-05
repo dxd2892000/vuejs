@@ -1,9 +1,9 @@
 <template>
     <el-main>
       <el-container>
-        <el-header style="text-align: left;"><span style="font-size: 25px; ">{{title[0]}}</span></el-header>
+        <el-header style="text-align: left;"><span style="font-size: 25px; ">{{detail_product.title}}</span></el-header>
         <el-main>
-          <img src="@/./assets/anh_5.png" alt="" style="margin-left: 25%;">
+          <img :src="detail_product.image" alt="" style="margin-left: 25%;">
           <p>&ndash;Mất nhiều thời gian để tạo tài liệu so sánh đơn giá xây dựng trung tâm thương mại và lưu trữ dữ liệu sang excel trong môi trường cục bộ.</p>
           <p>&ndash;Tất cả dữ liệu báo giá đều được phân phối và quản lý trên server dưới dạng file excel nên rất khó để trích xuất dữ liệu. </p>
           <p>&ndash;Khách hàng muốn hệ thống hóa toàn bộ số liệu báo giá và đánh giá các báo giá này từ nhà cung cấp xây dựng qua 1 hệ thống. </p>
@@ -24,17 +24,25 @@
   </template>
   
   <script>
+import newsService from '@/services/news_service';
 
 import ListProductVue from "./ListProduct.vue";
 
   export default {
     data(){
       return{
+        id: this.$route.params.id,
         category_name:"Phát triển hệ thống booking",
         title:["Phát Triển & Tích Hợp Hệ Thống Quản Lý Trung Tâm Thương Mại","Danh sách liên quan"],
+        detail_product: {},
       }
     },
     components: {ListProductVue},
+    created() {
+        newsService.detail(this.id).then((res) => {
+            this.detail_product = res
+        })
+    }
   }
   </script>
   

@@ -33,24 +33,7 @@
           ><p class="title_css">{{ title[1].toUpperCase() }}</p></el-header
         >
         <el-main>
-          <el-row>
-            <el-col span="6">
-              <img src="@/./assets/anh_1.png" />
-              <p>{{ category_name }}</p>
-            </el-col>
-            <el-col span="6">
-              <img src="@/./assets/anh_2.png" />
-              <p>{{ category_name }}</p>
-            </el-col>
-            <el-col span="6">
-              <img src="@/./assets/anh_3.png" />
-              <p>{{ category_name }}</p>
-            </el-col>
-            <el-col span="6">
-              <img src="@/./assets/anh_4.png" />
-              <p>{{ category_name }}</p>
-            </el-col>
-          </el-row>
+          <ListProductVue></ListProductVue>
         </el-main>
       </el-container>
     </el-main>
@@ -58,6 +41,8 @@
 </template>
     
     <script>
+import ListProductVue from "./ListProduct.vue";
+
 export default {
   data() {
     return {
@@ -70,6 +55,7 @@ export default {
       },
     };
   },
+  components: {ListProductVue},
   methods: {
     handleLearnMore() {
       this.$router.push("/detail");

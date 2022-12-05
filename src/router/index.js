@@ -7,6 +7,7 @@ import Details from '@/views/layout/Details'
 import Profile from '@/views/user/Profile'
 import Contact from '@/views/layout/Contact'
 import News from '@/views/layout/News'
+import DetailNews from '@/views/layout/DetailNews'
 
 Vue.use(VueRouter)
 
@@ -30,6 +31,11 @@ const routes = [
       path: '/detail',
       name: 'Details',
       component: Details
+    },
+    {
+      path: '/detailnews/:id',
+      name: 'DetailNews',
+      component: DetailNews
     },
     {
       path: '/register',

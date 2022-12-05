@@ -42,16 +42,49 @@
           >Register</el-button
         >
       </el-form-item>
+      <span
+        >Have a account?<el-button type="text" @click="handleRouter('/login')"
+          >Sign In</el-button
+        ></span
+      >
     </el-form>
   </div>
 </template>
   
 <script>
 import { REGISTER } from "@/constans/index.js";
-import {validateEmail,validatePass,validatePassConfirm} from '@/utils/validate'
 
 export default {
   data() {
+    var validateEmail = (rule, value, callback) => {
+      if (value == "") {
+        return callback(new Error("Please input the username"));
+      } else {
+        var filter =
+          /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(value)) {
+          return callback(new Error("No valid!"));
+        } else {
+          callback();
+        }
+      }
+    };
+    var validatePass = (rule, value, callback) => {
+      if (value == "") {
+        return callback(new Error("Please input the pass"));
+      } else {
+        callback();
+      }
+    };
+    var validatePassConfirm = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("Please input the password again"));
+      } else if (value !== this.ruleForm.password) {
+        callback(new Error("Two inputs don't match!"));
+      } else {
+        callback();
+      }
+    };
     return {
       logupForm: {
         email: "",
@@ -70,7 +103,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log("logupFrom",this.logupForm);
+          console.log("logupFrom", this.logupForm);
           this.$store.dispatch(`auth/${REGISTER}`, this.logupForm);
           alert("register success!");
         } else {
@@ -81,6 +114,9 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    handleRouter(path) {
+      this.$router.push(path);
     },
   },
 };
