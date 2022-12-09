@@ -1,5 +1,7 @@
 <template>
-  <el-form
+  <div>
+    <Header></Header>
+    <el-form
     :model="updateForm"
     status-icon
     :rules="rules"
@@ -40,10 +42,11 @@
       >
     </el-form-item>
   </el-form>
+  </div>
 </template>
 
 <script>
-import { AUTH } from "@/constans/index.js";
+import Header  from '@/components/Header.vue';
 import userService from "@/services/user_service";
 
 export default {
@@ -56,6 +59,7 @@ export default {
       },
     };
   },
+  components: {Header},
   created() {
     this.updateForm.id = this.$store.state.auth.auth.user.id;
     this.updateForm.email = this.$store.state.auth.auth.user.email;

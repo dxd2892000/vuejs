@@ -5,27 +5,23 @@ import Register from '@/views/user/Register'
 import Home from '@/views/layout/Home'
 import Details from '@/views/layout/Details'
 import Profile from '@/views/user/Profile'
-import Contact from '@/views/layout/Contact'
-import News from '@/views/layout/News'
-import DetailNews from '@/views/layout/DetailNews'
+import Contact from '@/views/layout/Contact/Contact'
+import News from '@/views/layout/News/News'
+import DetailNews from '@/views/layout/News/DetailNews'
+import DetailCategory from '@/views/layout/Category/DetailCategory'
 
 Vue.use(VueRouter)
 
 const routes = [
     {
       path: '/',
-      name: 'NONE',
-      component: Login
+      name: 'Home',
+      component: Home
     },
     {
       path: '/login',
       name: 'Login',
       component: Login
-    },
-    {
-      path: '/home',
-      name: 'Home',
-      component: Home
     },
     {
       path: '/detail',
@@ -36,6 +32,11 @@ const routes = [
       path: '/detailnews/:id',
       name: 'DetailNews',
       component: DetailNews
+    },
+    {
+      path: '/detailCategory/:id',
+      name: 'DetailCategory',
+      component: DetailCategory
     },
     {
       path: '/register',

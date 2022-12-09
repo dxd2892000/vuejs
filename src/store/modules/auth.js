@@ -17,7 +17,6 @@ export const auth = {
         state.auth = data
         localStorage.setItem('token', data.token)
         state.isAuthencated = true
-        state.checkAuthencated = true
     },
     [REGISTER](state, data) {
       localStorage.setItem('token', data.token)
@@ -25,7 +24,6 @@ export const auth = {
     [LOGOUT](state) {
       state.auth = ''
       state.isAuthencated = false
-      state.checkAuthencated = false
     },
     [UPDATE](state, data) {
       state.auth = data;
@@ -44,7 +42,7 @@ export const auth = {
       return authService.register(user).then(res => {
         console.log('res: ', res),
           commit(REGISTER, res),
-          router.push('/home')
+          router.push('/') 
       })
     },
     [LOGOUT]({ commit }) {

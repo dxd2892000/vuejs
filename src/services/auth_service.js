@@ -12,7 +12,7 @@ class AuthService {
       });
     }
     register(user) {
-      console.log('user: ', user)
+      console.log('userservice: ', user)
         return http
           .post('/register', user)
           .catch(err => {

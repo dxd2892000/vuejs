@@ -1,19 +1,18 @@
 <template>
   <div class="grid-content bg-purple">
     <el-menu
-      :default-active="1"
       class="el-menu-demo header"
       mode="horizontal"
       text-color="black"
       v-show="isShow"
     >
-      <el-menu-item v-for="item in topHeader" :key="item.id" :index="item.id" @click="handleClick(item.path)">
+      <el-menu-item v-for="item in topHeader" :key="item.id" @click="handleClick(item.path)">
         <el-dropdown>
           <span class="el-dropdown-link">
             {{item.name}}
           </span>
           <el-dropdown-menu slot="dropdown" v-if="item.id === 2">
-            <el-dropdown-item v-for="cate in categories" :key="cate.id">{{cate.name}}</el-dropdown-item>
+            <span v-for="cate in categories" :key="cate.id" @click="handleCate(cate.id)"><el-dropdown-item>{{cate.name}}</el-dropdown-item></span>
           </el-dropdown-menu>
         </el-dropdown>
       </el-menu-item>
@@ -33,12 +32,11 @@ export default {
         {
           id: 1,
           name: "Home",
-          path: "/home",
+          path: "/",
         },
         {
           id: 2,
           name: "Category",
-          path: "/home",
         },
         {
           id: 3,
@@ -58,6 +56,7 @@ export default {
     categoryService.getList().then((res) => {
       console.log("category ", res);
       this.categories = res;
+      // console.log("isAuthencated: ", auth.state.isAuthencated)
     });
 
     this.isShow = !!localStorage.getItem('token')
@@ -66,6 +65,9 @@ export default {
     handleClick(path) {
       console.log('Path: ',path)
       this.$router.push(path)
+    },
+    handleCate(id) {
+      this.$router.push('/detailCategory/' + id)
     }
   },
 };

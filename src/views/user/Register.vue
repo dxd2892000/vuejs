@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header></Header>
     <el-form
       :model="logupForm"
       status-icon
@@ -30,7 +31,7 @@
           autocomplete="off"
         ></el-input>
       </el-form-item>
-      <el-form-item label="Confirm" prop="confirm">
+      <el-form-item label="Confirm" prop="c_password">
         <el-input
           type="password"
           v-model="logupForm.c_password"
@@ -41,6 +42,7 @@
         <el-button type="primary" @click="submitForm('logupForm')"
           >Register</el-button
         >
+        <el-button @click="resetForm('logupForm')">Reset</el-button>
       </el-form-item>
       <span
         >Have a account?<el-button type="text" @click="handleRouter('/login')"
@@ -52,37 +54,19 @@
 </template>
   
 <script>
+import Header from "@/components/Header.vue";
 import { REGISTER } from "@/constans/index.js";
+import { validateEmail, validatePass } from "@/utils/validate";
 
 export default {
   data() {
-    var validateEmail = (rule, value, callback) => {
-      if (value == "") {
-        return callback(new Error("Please input the username"));
-      } else {
-        var filter =
-          /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if (!filter.test(value)) {
-          return callback(new Error("No valid!"));
-        } else {
-          callback();
-        }
-      }
-    };
-    var validatePass = (rule, value, callback) => {
+    var validateConfirm = (rule, value, callback) => {
       if (value == "") {
         return callback(new Error("Please input the pass"));
+      } else if (value !== this.logupForm.password) {
+        return callback(new Error("Don't match"));
       } else {
-        callback();
-      }
-    };
-    var validatePassConfirm = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("Please input the password again"));
-      } else if (value !== this.ruleForm.password) {
-        callback(new Error("Two inputs don't match!"));
-      } else {
-        callback();
+        return callback();
       }
     };
     return {
@@ -94,11 +78,12 @@ export default {
       },
       rule: {
         email: [{ validator: validateEmail, trigger: "blur" }],
-        confirm: [{ validator: validatePassConfirm, trigger: "blur" }],
         password: [{ validator: validatePass, trigger: "blur" }],
+        c_password: [{ validator: validateConfirm, trigger: "blur" }],
       },
     };
   },
+  components: { Header },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {

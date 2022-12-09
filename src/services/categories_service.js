@@ -16,6 +16,7 @@ class CategoryService {
     return http
       .post('/news/list-news-category',category_id )
       .then(res => {
+        console.log('category_id', category_id)
         return res?.data?.data;
       })
       .catch(err => {

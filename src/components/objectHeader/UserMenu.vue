@@ -4,7 +4,7 @@
       <i class="el-icon-user-solid"></i>USER
     </span>
     <el-dropdown-menu>
-      <el-dropdown-item @click="handleProfile">Profile</el-dropdown-item>
+      <el-dropdown-item><span @click="handleProfile">Profile</span></el-dropdown-item>
       <el-dropdown-item>
         <span @click="handleLogout"> Logout </span>
       </el-dropdown-item>
@@ -13,13 +13,15 @@
 </template>
 
 <script>
-import {LOGOUT} from '@/constans/'
+import { LOGOUT } from "@/constans/";
 
 export default {
-    name: 'UserMenu',
-    data() {},
-    methods: {
-        handleProfile() {
+  name: "UserMenu",
+  data() {
+    return{}
+  },
+  methods: {
+    handleProfile() {
       this.$router.push("/profile");
     },
     handleLogout() {
@@ -30,8 +32,8 @@ export default {
             this.$router.push("/login"); // redirect
           });
           this.$notify({
-            type: 'success',
-            message: "Logout "+res.message
+            type: "success",
+            message: "Logout " + res.message,
           });
         })
         .catch((error) => {
@@ -43,10 +45,10 @@ export default {
           });
         });
     },
-    }
+  },
 };
 </script>
 
 <style>
-@import '@/styles/header.css';
+@import "@/styles/header.css";
 </style>

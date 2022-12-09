@@ -1,4 +1,6 @@
 <template>
+  <div>
+    <Header></Header>
     <el-main>
       <el-container>
         <el-header style="text-align: left;"><span style="font-size: 25px; ">{{title[0]}}</span></el-header>
@@ -21,11 +23,13 @@
           </el-main>
         </el-container>
     </el-main>
+  </div>
+    
   </template>
   
   <script>
-
-import ListProductVue from "./ListProduct.vue";
+import Header  from '@/components/Header.vue';
+import ListProductVue from "./News/ListProduct.vue";
 
   export default {
     data(){
@@ -34,7 +38,7 @@ import ListProductVue from "./ListProduct.vue";
         title:["Phát Triển & Tích Hợp Hệ Thống Quản Lý Trung Tâm Thương Mại","Danh sách liên quan"],
       }
     },
-    components: {ListProductVue},
+    components: {ListProductVue, Header},
   }
   </script>
   
