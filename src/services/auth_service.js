@@ -1,10 +1,11 @@
 import http from '@/plugins/index.js'
-import { authHeaders } from '@/utils/auth';
 
 class AuthService {
     login(user) {
+      console.log('user:', user)
        return http.post('/login', user)
        .then(res => {
+        console.log('service:', res)
         return res?.data
        })
        .catch(err => {
