@@ -4,7 +4,6 @@
       class="el-menu-demo header"
       mode="horizontal"
       text-color="black"
-      v-show="isShow"
     >
       <el-menu-item v-for="item in topHeader" :key="item.id" @click="handleClick(item.path)">
         <el-dropdown>
@@ -59,7 +58,7 @@ export default {
       // console.log("isAuthencated: ", auth.state.isAuthencated)
     });
 
-    this.isShow = !!localStorage.getItem('token')
+    //this.isShow = !!localStorage.getItem('token')
   },
   methods: {
     handleClick(path) {

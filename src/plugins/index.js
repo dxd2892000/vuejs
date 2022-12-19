@@ -23,9 +23,9 @@ http.interceptors.request.use(
     return config;
   },
   error => {
-    localStorage.removeItem('token');
-    this.$router.push('/login');
-    return Promise.reject(error);
+    // localStorage.removeItem('token');
+    // this.$router.push('/login');
+    // return Promise.reject(error);
   },
 );
 
@@ -35,13 +35,13 @@ http.interceptors.response.use(
     return response?.data;
   },
   error => {
-    // if (error.response && error.response.status === 401) {
-    //   removeAuthenticated(); // remove authentication in local storage   
-    //   setTimeout(() => {
-    //     router.push('/login');
-    //   });
-    // }
-    // return Promise.reject(error);
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem('token'),   
+      setTimeout(() => {
+        router.push('/login');
+      });
+    }
+    return Promise.reject(error);
   },
 );
 Vue.prototype.$http = http;

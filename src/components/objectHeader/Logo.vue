@@ -1,10 +1,15 @@
 <template>
-  <img src="@/assets/codLuck.png" height="60px" />
+  <img src="@/assets/codLuck.png" height="60px" @click="homeRouter" />
 </template>
 
 <script>
 export default {
-name: 'Logo'
+name: 'Logo',
+methods: {
+  homeRouter() {
+    this.$router.push('/');
+  }
+}
 }
 </script>
 

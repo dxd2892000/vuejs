@@ -68,7 +68,10 @@ const routes = [
   })
 
   router.beforeEach((to, from, next) => {
-    if (to.name !== 'Login' && to.name !== 'Register'&& !localStorage.getItem('token')) next({ name: 'Login' })
+    var token = !!localStorage.getItem('token');
+    if (to.name !== 'Login' && to.name !== 'Register'&& token === false) next({ name: 'Login' })
+    else next()
+    if (token === true && (to.name === 'Login' || to.name === 'Register')) next({ name: 'Home' })
     else next()
   })
   

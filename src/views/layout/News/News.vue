@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header></Header>
-    <el-row :gutter="12">
+    <el-row :gutter="12" v-loading="loading">
     <el-col :span="18">
       <el-card v-for="item in tableData" :key="item.id">
         <div @click="handleNewDetail(item.id)">
@@ -33,11 +33,13 @@ export default {
   data() {
     return {
       tableData: [],
+      loading: true
     };
   },
   created() {
     newsService.getList().then((res) => {
       this.tableData = res;
+      this.loading = false
     });
   },
   components: {Header},

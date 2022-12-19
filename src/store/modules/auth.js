@@ -6,24 +6,20 @@ export const auth = {
   namespaced: true,
   state: {
     auth: {},
-    isAuthencated: false,
   },
   getters: {
     auth: state => state.auth,
-    isAuthencated: state => state.isAuthencated,
   },
   mutations: {
     [AUTH](state, data) {
         state.auth = data
         localStorage.setItem('token', data.token)
-        state.isAuthencated = true
     },
     [REGISTER](state, data) {
       localStorage.setItem('token', data.token)
     },
     [LOGOUT](state) {
       state.auth = ''
-      state.isAuthencated = false
     },
     [UPDATE](state, data) {
       state.auth = data;
@@ -32,8 +28,9 @@ export const auth = {
   },
   actions: {
     [AUTH]({ commit }, auth) {
+      console.log('auth:', auth)
       return authService.login(auth).then(data => {
-        console.log(data),
+        console.log('Store: ',data),
           commit(AUTH, data)
       });
     },

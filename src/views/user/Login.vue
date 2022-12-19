@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header></Header>
     <el-form
       :model="loginForm"
       status-icon
@@ -39,7 +38,6 @@
 </template>
 
 <script>
-import Header from "@/components/Header.vue";
 import { AUTH } from "@/constans/index.js";
 import { validateEmail, validatePass } from "@/utils/validate";
 
@@ -56,10 +54,9 @@ export default {
       },
     };
   },
-  components: { Header },
   methods: {
     submitForm(formName) {
-      console.log(this.loginForm);
+      console.log('Form: ',this.loginForm);
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$store
@@ -68,6 +65,7 @@ export default {
               this.$notify({
                 type: "success",
                 message: "Login Success",
+                duration: 3000
               });
               this.$router.push("/");
             })
@@ -75,6 +73,7 @@ export default {
               this.$notify({
                 type: "error",
                 message: "Nguoi dung khong ton tai",
+                duration: 3000
               });
             });
         } else {

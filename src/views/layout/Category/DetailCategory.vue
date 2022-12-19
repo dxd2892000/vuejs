@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header></Header>
-    <el-cotainer>
+    <el-cotainer v-loading="loading">
     <el-row :gutter="12">
       <el-col :span="18">
         <el-card v-for="item in detail_category" :key="item.id">
@@ -39,11 +39,13 @@ export default {
         category_id: this.$route.params.id,
       },
       detail_category: [],
+      loading: true
     };
   },
   created() {
     categoryService.getListNewsCategory(this.id).then((res) => {
       (this.detail_category = res), console.log("ress:", res);
+      this.loading = false
     });
   },
   components: {Header},

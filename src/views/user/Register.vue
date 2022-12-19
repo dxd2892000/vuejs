@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header></Header>
     <el-form
       :model="logupForm"
       status-icon
